@@ -2,31 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<x-navigation></x-navigation>
     <h1>Login</h1>
-    <form  method="POST">
+
+<form method="POST" action="{{ route('login') }}">
     @csrf
-        @if ($errors->any())
-        <ul>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-        @endif
+    <label>Lietotājvārds:</label>
+    <input type="text" name="username" required>
 
-        <label>Lietotājvārds:</label>
-        <input type="username" name="username" value="{{ old('username') }}" required/><br><br>
+    <label>Parole:</label>
+    <input type="password" name="password" required>
 
-        <label>Password:</label>
-        <input type="password" name="password" required/><br><br>
+    <button type="submit">Login</button>
+</form>
 
 
-        <button>Login</button>
-    </form>
+    <p>Nav konta? <a href="{{ route('register.form') }}">Reģistrēties</a></p>
 </body>
 </html>

@@ -35,13 +35,13 @@ class LoginController extends Controller
     }
 
     // Logout
-    public function logout(Request $request)
-    {
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+   public function logout(Request $request)
+{
+    Auth::logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
 
-        return redirect('/login');
-    }
+    return redirect()->route('login.form'); // <- was /login
+}
 }
 

@@ -1,33 +1,20 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\QuizController;
-
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\QuizController;
+use Illuminate\Support\Facades\Route;
 
+Route::get('/', [LoginController::class, 'showLoginForm'])->name('login.form');
+Route::post('/login', [LoginController::class, 'login'])->name('login');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('register.form');
+Route::post('/register', [RegisterController::class, 'register'])->name('register');
+
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/quiz', [QuizController::class, 'index'])->name('quiz.index');
 Route::post('/quiz/start', [QuizController::class, 'start'])->name('quiz.start');
-
-//auth
-// Show login form
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login.form');
-
-// Handle login submission
-Route::post('/login', [LoginController::class, 'login'])->name('login');
-
-// Logout
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-// Show registration form
-Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('register.form');
-
-// Handle registration submission
-Route::post('/register', [RegisterController::class, 'register'])->name('register');
-
-
-
+Route::get('/login', function() {
+    return redirect()->route('login.form');
+});
