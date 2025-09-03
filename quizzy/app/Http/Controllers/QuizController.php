@@ -11,7 +11,7 @@ class QuizController extends Controller
     // Parāda tematu sarakstu
     public function index()
     {
-        $topics = Topic::all();
+        $topics = \App\Models\Topic::all();
         return view('quiz.index', compact('topics'));
     }
 
