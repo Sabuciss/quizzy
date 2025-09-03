@@ -9,7 +9,7 @@
 
   <div id="quizArea">
     @foreach($questions as $i => $q)
-      <div class="question" style="{{ $i === 0 ? '' : 'display:none;' }}">
+      <div class="question" >
         <h3>{{ $q->question }}</h3>
         @php
           $answers = [$q->correct_answer, $q->wrong1, $q->wrong2, $q->wrong3];
