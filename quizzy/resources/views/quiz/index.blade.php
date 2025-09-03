@@ -1,6 +1,5 @@
-@extends('layouts.app')
+<x-layout>
 
-@section('content')
 <div class="quiz-box">
   <h2>Izvēlies testu</h2>
   <form action="{{ route('quiz.start') }}" method="POST">
@@ -14,4 +13,5 @@
     <button type="submit">Start Quiz</button>
   </form>
 </div>
-@endsection
+
+</x-layout>

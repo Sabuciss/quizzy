@@ -1,4 +1,4 @@
-@extends('layouts.app')
+<x-layout>
 
 @section('content')
 <div class="quiz-box">
@@ -39,3 +39,5 @@
   }
 </script>
 @endsection
+
+</x-layout>
