@@ -1,7 +1,7 @@
 <x-layout>
     <div class="container">
         <div class="login-box">
-            <h1>Login</h1>
+            <h1>Login</h1><br>
 
             <form method="POST" action="{{ route('login') }}">
                 @csrf
@@ -15,7 +15,7 @@
                     <input type="password" name="password" required><br><br>
                 </label>
 
-                <button type="submit">Login</button>
+                <button type="submit">Login</button><br><br>
             </form>
 
 

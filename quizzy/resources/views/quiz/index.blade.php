@@ -1,6 +1,6 @@
 <x-layout>
 
-<div class="container">
+<div class="container navbar-container">
   <div class="quiz-box">
   <h2>Izvēlies testu</h2>
   <form action="{{ route('quiz.start') }}" method="POST">
@@ -11,7 +11,7 @@
         <option value="{{ $topic->id }}">{{ $topic->name }}</option>
       @endforeach
     </select>
-    <button type="submit">Start Quiz</button>
+    <button type="submit">Sākt Testu</button>
   </form>
   </div>
 </div>

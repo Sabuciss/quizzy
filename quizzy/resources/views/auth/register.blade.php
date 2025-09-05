@@ -1,7 +1,7 @@
 <x-layout>
     <div class="container">
         <div class="register-box">
-            <h1>Reģistrācija</h1>
+            <h1>Reģistrācija</h1><br>
 
             <form method="POST" action="{{ route('register') }}">
                 @csrf
@@ -20,7 +20,7 @@
                     <input type="password" name="password_confirmation" required><br><br>
                 </label>
 
-                <button type="submit">Reģistrēties</button>
+                <button type="submit">Reģistrēties</button><br><br>
             </form>
 
             <p>Jau ir konts? <a href="{{ route('login.form') }}">Ienākt</a></p>
