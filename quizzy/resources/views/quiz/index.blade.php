@@ -1,6 +1,7 @@
 <x-layout>
 
-<div class="quiz-box">
+<div class="container">
+  <div class="quiz-box">
   <h2>Izvēlies testu</h2>
   <form action="{{ route('quiz.start') }}" method="POST">
     @csrf
@@ -12,6 +13,7 @@
     </select>
     <button type="submit">Start Quiz</button>
   </form>
+  </div>
 </div>
 
 </x-layout>

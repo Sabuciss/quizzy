@@ -1,24 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>
-<body>
-    <h1>Login</h1>
+<x-layout>
+    <div class="container">
+        <div class="login-box">
+            <h1>Login</h1>
 
-<form method="POST" action="{{ route('login') }}">
-    @csrf
-    <label>Lietotājvārds:</label>
-    <input type="text" name="username" required>
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
+                <label>
+                    Lietotājvārds<br>
+                    <input type="text" name="username" required><br><br>
+                </label>
 
-    <label>Parole:</label>
-    <input type="password" name="password" required>
+                <label>
+                    Parole<br>
+                    <input type="password" name="password" required><br><br>
+                </label>
 
-    <button type="submit">Login</button>
-</form>
+                <button type="submit">Login</button>
+            </form>
 
 
-    <p>Nav konta? <a href="{{ route('register.form') }}">Reģistrēties</a></p>
-</body>
-</html>
+            <p>Nav konta? <a href="{{ route('register.form') }}">Reģistrēties</a></p>
+        </div>
+    </div>
+</x-layout>
