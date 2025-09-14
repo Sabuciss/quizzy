@@ -13,10 +13,14 @@ return new class extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
-            $table->string('topic');      
-            $table->text('question');      
-            $table->json('options')->nullable(); 
-            $table->string('answer');     
+            $table->unsignedBigInteger('topic_id');
+            $table->foreign('topic_id')->references('id')->on('topics')->onDelete('cascade');      
+            $table->string('question');      
+            $table->string('correct_answer'); 
+            $table->string('wrong1');
+            $table->string('wrong2')->nullable();
+            $table->string('wrong3')->nullable();
+            $table->string('wrong4')->nullable();
             $table->timestamps();
         });
     }

@@ -7,18 +7,12 @@ use App\Models\Topic;
 
 class TopicSeeder extends Seeder
 {
-    public function run(): void
+    public function run()
     {
-        $topics = [
-            'Grāmatas',
-            'Sports',
-            'Vēsture un Dabaszinības',
-            'Augstpapēžu kurpes',
-            'Minioni',
-        ];
-
-        foreach ($topics as $topic) {
-            Topic::create(['name' => $topic]);
-        }
+        Topic::create(['name' => 'Grāmatas']);
+        Topic::create(['name' => 'Sports']);
+        Topic::create(['name' => 'Vēsture un Dabaszinības']);
+        Topic::create(['name' => 'Augstpapēžu kurpes']);
+        Topic::create(['name' => 'Minioni']);
     }
 }
