@@ -13,8 +13,9 @@ Route::post('/register', [RegisterController::class, 'register'])->name('registe
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
+// Quiz Routes
 Route::get('/quiz', [QuizController::class, 'index'])->name('quiz.index');
 Route::post('/quiz/start', [QuizController::class, 'start'])->name('quiz.start');
-Route::get('/login', function() {
-    return redirect()->route('login.form');
-});
+
+Route::get('/quiz/create', [QuizController::class, 'create'])->name('quiz.create');
+Route::post('/questions', [QuizController::class, 'store'])->name('questions.store');
