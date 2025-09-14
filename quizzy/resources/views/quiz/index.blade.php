@@ -2,17 +2,17 @@
 
 <div class="container navbar-container">
   <div class="quiz-box">
-  <h2>Izvēlies testu</h2>
-  <form action="{{ route('quiz.start') }}" method="POST">
-    @csrf
-    <select name="topic_id" required>
-      <option value="">-- Izvēlies tematu --</option>
-      @foreach($topics as $topic)
-        <option value="{{ $topic->id }}">{{ $topic->name }}</option>
-      @endforeach
-    </select>
-    <button type="submit">Sākt Testu</button>
-  </form>
+    <h2>Izvēlies testu</h2>
+    <form action="{{ route('quiz.start') }}" method="POST">
+      @csrf
+      <select name="topic_id" required>
+        <option value="">-- Izvēlies tematu --</option>
+        @foreach($topics as $topic)
+          <option value="{{ $topic->id }}">{{ $topic->name }}</option>
+        @endforeach
+      </select>
+      <button type="submit">Sākt Testu</button>
+    </form>
   </div>
 </div>
 

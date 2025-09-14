@@ -9,35 +9,54 @@ use App\Models\Question;
 class QuizController extends Controller
 {
     // Parāda tematu sarakstu
-    public function index()
-    {
+    public function index() {
         $topics = \App\Models\Topic::all();
         return view('quiz.index', compact('topics'));
     }
 
     // Sāk testu izvēlētajam tematam
-    public function start(Request $request)
-    {
+    public function start(Request $request) {
         $request->validate([
             'topic_id' => 'required|exists:topics,id'
         ]);
 
-        $questions = Question::where('topic_id', $request->topic_id)
-            ->inRandomOrder()
-            ->take(15)
+        $topicKey = 'quiz_questions_topic_' . $request->topic_id;
+
+        // If quiz just started, store question IDs in session
+        if (!$request->session()->has($topicKey)) {
+            $questions = Question::where('topic_id', $request->topic_id)
+                ->take(15)
+                ->get();
+
+            // store IDs in session for this topic only
+            $request->session()->put($topicKey, $questions->pluck('id')->toArray());
+        }
+
+        // Get questions in the same order
+        $questionIds = $request->session()->get($topicKey);
+        $questions = Question::whereIn('id', $questionIds)
+            ->orderByRaw("FIELD(id, " . implode(',', $questionIds) . ")")
             ->get();
 
-        return view('quiz.play', compact('questions'));
+        // Pass topic_id to the Blade so retake/redirect works
+        $topic_id = $request->topic_id;
+
+        return view('quiz.play', compact('questions', 'topic_id'));
+    }
+    public function results(Request $request) {
+        $score = $request->query('score');
+        $total = $request->query('total');
+        $topic_id = $request->query('topic_id');
+
+        return view('quiz.results', compact('score', 'total', 'topic_id'));
     }
 
-    public function create()
-    {
+    public function create() {
         $topics = Topic::all();
         return view('quiz.create', compact('topics'));
     }
     
-     public function store(Request $request)
-    {
+     public function store(Request $request) {
         $validatedData = $request->validate([
             'topic_id' => 'required|exists:topics,id',
             'question' => 'required|string|max:255',

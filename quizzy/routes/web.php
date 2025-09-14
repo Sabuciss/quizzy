@@ -19,3 +19,5 @@ Route::post('/quiz/start', [QuizController::class, 'start'])->name('quiz.start')
 
 Route::get('/quiz/create', [QuizController::class, 'create'])->name('quiz.create');
 Route::post('/questions', [QuizController::class, 'store'])->name('questions.store');
+
+Route::get('/results', [QuizController::class, 'results'])->name('quiz.results');
