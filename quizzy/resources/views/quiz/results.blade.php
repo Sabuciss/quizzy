@@ -5,6 +5,10 @@
         <h2>Rezultāts</h2>
         <p style="font-size: 16px;">Tu atbildēji pareizi uz <strong>{{ $score }}</strong> no <strong>{{ $total }}</strong> jautājumiem.</p>
 
+        <a href="{{ route('quiz.leaderboard', ['topic' => $topic_id]) }}">
+            Skatīt leaderbordu
+        </a>
+
         <div style="margin-top:20px;">
             <!-- atļauj atkal izpildīt to pašu testu -->
             <form action="{{ route('quiz.start') }}" method="POST">

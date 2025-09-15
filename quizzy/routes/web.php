@@ -21,3 +21,6 @@ Route::get('/quiz/create', [QuizController::class, 'create'])->name('quiz.create
 Route::post('/questions', [QuizController::class, 'store'])->name('questions.store');
 
 Route::get('/results', [QuizController::class, 'results'])->name('quiz.results');
+
+// Leaderboard lapa konkrētajai tēmai
+Route::get('/leaderboard/{topic}', [QuizController::class, 'leaderboard'])->name('quiz.leaderboard')->middleware('auth');
