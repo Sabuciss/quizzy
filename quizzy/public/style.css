@@ -24,16 +24,31 @@ button:hover {
 }
 
 /*----------CONTAINERS----------*/
-.container { /* galvevnais container - visām lapām */
+/* galvevnais container - visām lapām */
+.container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
 
-.container.navbar-container { /* tikai priekš tām lapāk kur ir navbar */
+/* tikai priekš tām lapāk kur ir navbar */
+.container.navbar-container {
     height: calc(100vh - 60px);
     overflow: hidden; /* optional: novērš nejaušus scrollbars */
+}
+
+/* tikai priekš tām lapām kur ir vajadzīgs scroll, piem., create lapa */
+.container.navbar-container.scroll {
+    height: auto;
+    max-height: calc(100vh - 60px);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px 0;
+    box-sizing: border-box;
 }
 
 .quiz-box, .register-box, .login-box,

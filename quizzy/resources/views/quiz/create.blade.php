@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="container navbar-container">
+    <div class="container navbar-container scroll">
         <div class="create-box">
             <h1>Pievienot jautājumu</h1>
 
