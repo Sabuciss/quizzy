@@ -19,7 +19,7 @@
         <div class="question" style="display: {{ $i === 0 ? 'block' : 'none' }};">
           <h3>{{ $question->question }}</h3>
           @php
-            // sajauc atbilžu ārtību katrā spēles reizē
+            // sajauc atbilžu kārtību katrā spēles reizē
             $answers = array_filter([$question->correct_answer, $question->wrong1, $question->wrong2, $question->wrong3]);
             shuffle($answers);
           @endphp

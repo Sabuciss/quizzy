@@ -31,7 +31,8 @@ class QuestionsSeeder extends Seeder
             'wrong1' => 'Dante Alighieri',
             'wrong2' => 'Džons Miltons',
             'wrong3' => 'Homērs',
-            'wrong4' => 'Čārlzs Dikens'
+            'wrong4' => 'Čārlzs Dikens',
+            
         ]);
 
         Question::create([
@@ -818,7 +819,7 @@ class QuestionsSeeder extends Seeder
             'wrong4' => 'Minions 2',
             
         ]);
-        
+
         Question::create([
             'topic_id' => $topics['Minioni'],
             'question' => 'Kurā gadā tika izlaista filma “Minions”?',
