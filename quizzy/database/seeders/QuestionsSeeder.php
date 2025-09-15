@@ -820,12 +820,10 @@ class QuestionsSeeder extends Seeder
             
         ]);
 
-        // NOTE: the original data had an incorrect answer for this question ("Luijs XIV").
-        // Keeping the original provided answer (as requested), even though it looks like a mistake.
         Question::create([
             'topic_id' => $topics['Minioni'],
             'question' => 'Kurā gadā tika izlaista filma “Minions”?',
-            'correct_answer' => 'Luijs XIV',
+            'correct_answer' => '2015',
             'wrong1' => '2009',
             'wrong2' => '2010',
             'wrong3' => '2015',
