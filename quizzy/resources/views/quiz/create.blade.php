@@ -40,6 +40,9 @@
                 <label for="wrong3">Nepareizā atbilde 3</label>
                 <input type="text" name="wrong3" id="wrong3" />
 
+                <label for="wrong4">Nepareizā atbilde 4</label>
+                <input type="text" name="wrong4" id="wrong4" />
+
                 <button type="submit">Saglabāt</button>
             </form>
         </div>

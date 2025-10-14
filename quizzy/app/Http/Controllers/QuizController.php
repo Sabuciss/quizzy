@@ -23,9 +23,8 @@ class QuizController extends Controller
         // Count questions for the topic
         $questionCount = Question::where('topic_id', $request->topic_id)->count();
 
-        // If less than 15, show error and do not start quiz
         if ($questionCount < 15) {
-            return redirect()->back()->with('error', 'Šai tēmai nav pietiekami daudz jautājumu (min. 15)!');
+            return redirect()->back()->with('error', 'Šai tēmai nav pietiekami daudz jautājumu! Lūdzu izvēlieties citu tēmu.');
         }
 
         $topicKey = 'quiz_questions_topic_' . $request->topic_id;
@@ -131,5 +130,15 @@ public function create() {
         ]);
 
         return redirect()->back()->with('status', 'Jautājums saglabāts!');
+    }
+
+    public function storeTopic(Request $request) {
+        $request->validate([
+            'new_topic_name' => 'required|string|max:255'
+        ]);
+
+        Topic::firstOrCreate(['name' => $request->new_topic_name]);
+
+        return redirect()->back()->with('status', 'Tēma pievienota!');
     }
 }
