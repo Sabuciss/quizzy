@@ -118,6 +118,7 @@ public function leaderboard($topic_id)
             'wrong1'=> $validatedData['wrong1'],
             'wrong2'=> $validatedData['wrong2'],
             'wrong3'=> $validatedData['wrong3'],
+            'wrong4'=> $validatedData['wrong4'],
         ]);
 
         return redirect()->back()->with('status', 'Jautājums saglabāts!');
