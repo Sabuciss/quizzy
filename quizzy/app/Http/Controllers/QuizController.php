@@ -20,38 +20,17 @@ class QuizController extends Controller
             'topic_id' => 'required|exists:topics,id'
         ]);
 
-        // Count questions for the topic
-        $questionCount = Question::where('topic_id', $request->topic_id)->count();
+        $questions = Question::where('topic_id', $request->topic_id)->get();
 
-        if ($questionCount < 15) {
-            return redirect()->back()->with('error', 'Šai tēmai nav pietiekami daudz jautājumu! Lūdzu izvēlieties citu tēmu.');
-        }
-
-        $topicKey = 'quiz_questions_topic_' . $request->topic_id;
-
-        if (!$request->session()->has($topicKey)) {
-            $questions = Question::where('topic_id', $request->topic_id)
-                ->take(15)
-                ->get();
-
-            // store IDs in session for this topic only
-            $request->session()->put($topicKey, $questions->pluck('id')->toArray());
-        }
-
-        $questionIds = $request->session()->get($topicKey);
-
-        if (empty($questionIds)) {
+        if ($questions->count() == 0) {
             return redirect()->back()->with('error', 'Šai tēmai vēl nav jautājumu!');
         }
-
-        $questions = Question::whereIn('id', $questionIds)
-            ->orderByRaw("FIELD(id, " . implode(',', $questionIds) . ")")
-            ->get();
 
         $topic_id = $request->topic_id;
 
         return view('quiz.play', compact('questions', 'topic_id'));
     }
+
 
 // Leaderborda funkcija
    public function results(Request $request) {
