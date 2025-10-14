@@ -1,9 +1,20 @@
 <x-layout>
     <div class="container navbar-container scroll">
         <div class="create-box">
-            <h1>Pievienot jautājumu</h1>
 
-            <form method="POST" action="/quiz/create">
+            <h1>Pievienot jautājumu</h1>
+            @if(session('status'))
+                <script>
+                    alert("{{ session('status') }}");
+                </script>
+            @endif
+
+            @if($errors->any())
+                <script>
+                    alert("Neizdevās pievienot jautājumu. Lūdzu pārbaudiet ievades datus.");
+                </script>
+            @endif
+            <form action="{{ route('questions.store') }}" method="POST">
                 @csrf
 
                 <label for="topic_id">Tēma</label>

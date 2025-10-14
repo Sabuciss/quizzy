@@ -120,35 +120,16 @@ public function create() {
             'wrong3' => 'string|max:255',
         ]);
 
-        // Combine all answers into a JSON array for the 'options' column
-        $options = [
-            $validatedData['correct_answer'],
-            $validatedData['wrong1'],
-            $validatedData['wrong2'],
-            $validatedData['wrong3'],
-        ];
-
-        // Shuffle the options to randomize their order
-        shuffle($options);
-
         // Create the question in the database
         Question::create([
             'topic_id' => $validatedData['topic_id'],
             'question' => $validatedData['question'],
-            'options' => json_encode($options), // Save the shuffled options as a JSON string
-            'answer' => $validatedData['correct_answer'],
+            'correct_answer' => $validatedData['correct_answer'],
+            'wrong1'=> $validatedData['wrong1'],
+            'wrong2'=> $validatedData['wrong1'],
+            'wrong3'=> $validatedData['wrong1'],
         ]);
 
-        return redirect()->back()->with('success', 'Jautājums saglabāts!');
-    }
-
-    public function storeTopic(Request $request) {
-        $request->validate([
-            'new_topic_name' => 'required|string|max:255'
-        ]);
-
-        \App\Models\Topic::firstOrCreate(['name' => $request->new_topic_name]);
-
-        return redirect()->back()->with('success', 'Tēma pievienota!');
+        return redirect()->back()->with('status', 'Jautājums saglabāts!');
     }
 }

@@ -218,3 +218,9 @@ header nav a:hover {
 .result-box a:hover {
     background-color: #42a5f5;
 }
+
+@media(max-with:550px){
+    .container{
+        margin: 10px;
+    }
+}

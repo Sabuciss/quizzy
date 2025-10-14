@@ -3,7 +3,7 @@
             <tr>
                 <th>Vieta</th>
                 <th>Lietotājs</th>
-                <th>Punkti</th>
+                <th>Punktiiiiiiiiiiiiiiiiiii</th>
             </tr>
             @foreach($highscores as $i => $res)
                 <tr @if($res->user_id == auth()->id()) style="background: #d2f6c5;" @endif>
