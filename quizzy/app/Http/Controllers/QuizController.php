@@ -20,9 +20,16 @@ class QuizController extends Controller
             'topic_id' => 'required|exists:topics,id'
         ]);
 
+        // Count questions for the topic
+        $questionCount = Question::where('topic_id', $request->topic_id)->count();
+
+        // If less than 15, show error and do not start quiz
+        if ($questionCount < 15) {
+            return redirect()->back()->with('error', 'Šai tēmai nav pietiekami daudz jautājumu (min. 15)!');
+        }
+
         $topicKey = 'quiz_questions_topic_' . $request->topic_id;
 
-        // If quiz just started, store question IDs in session
         if (!$request->session()->has($topicKey)) {
             $questions = Question::where('topic_id', $request->topic_id)
                 ->take(15)
@@ -32,13 +39,16 @@ class QuizController extends Controller
             $request->session()->put($topicKey, $questions->pluck('id')->toArray());
         }
 
-        // Get questions in the same order
         $questionIds = $request->session()->get($topicKey);
+
+        if (empty($questionIds)) {
+            return redirect()->back()->with('error', 'Šai tēmai vēl nav jautājumu!');
+        }
+
         $questions = Question::whereIn('id', $questionIds)
             ->orderByRaw("FIELD(id, " . implode(',', $questionIds) . ")")
             ->get();
 
-        // Pass topic_id to the Blade so retake/redirect works
         $topic_id = $request->topic_id;
 
         return view('quiz.play', compact('questions', 'topic_id'));
@@ -95,11 +105,7 @@ public function leaderboard($topic_id)
     return view('quiz.leaderboard', compact('highscores', 'userScore', 'userRank', 'topic_id'));
 }
 
-
-
-
-
-    public function create() {
+public function create() {
         $topics = Topic::all();
         return view('quiz.create', compact('topics'));
     }
@@ -134,5 +140,15 @@ public function leaderboard($topic_id)
         ]);
 
         return redirect()->back()->with('success', 'Jautājums saglabāts!');
+    }
+
+    public function storeTopic(Request $request) {
+        $request->validate([
+            'new_topic_name' => 'required|string|max:255'
+        ]);
+
+        \App\Models\Topic::firstOrCreate(['name' => $request->new_topic_name]);
+
+        return redirect()->back()->with('success', 'Tēma pievienota!');
     }
 }

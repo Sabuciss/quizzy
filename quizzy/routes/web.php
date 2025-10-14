@@ -22,16 +22,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/results', [QuizController::class, 'results'])->name('quiz.results'); 
     
     Route::middleware('can:access-admin-features')->group(function () {
-            Route::get('/quiz/create', [QuizController::class, 'create'])->name('quiz.create');
+            Route::post('/quiz/create', [QuizController::class, 'create'])->name('quiz.create');
             Route::post('/questions', [QuizController::class, 'store'])->name('questions.store');
         });
 });
+
 // Quiz Routes
 Route::get('/quiz', [QuizController::class, 'index'])->name('quiz.index');
 Route::post('/quiz/start', [QuizController::class, 'start'])->name('quiz.start');
 
 Route::get('/quiz/create', [QuizController::class, 'create'])->name('quiz.create');
 Route::post('/questions', [QuizController::class, 'store'])->name('questions.store');
+Route::post('/quiz/topic', [\App\Http\Controllers\QuizController::class, 'storeTopic'])->name('quiz.storeTopic');
 
 Route::get('/results', [QuizController::class, 'results'])->name('quiz.results');
 
