@@ -95,10 +95,6 @@ public function leaderboard($topic_id)
     return view('quiz.leaderboard', compact('highscores', 'userScore', 'userRank', 'topic_id'));
 }
 
-
-
-
-
     public function create() {
         $topics = Topic::all();
         return view('quiz.create', compact('topics'));
@@ -114,25 +110,16 @@ public function leaderboard($topic_id)
             'wrong3' => 'string|max:255',
         ]);
 
-        // Combine all answers into a JSON array for the 'options' column
-        $options = [
-            $validatedData['correct_answer'],
-            $validatedData['wrong1'],
-            $validatedData['wrong2'],
-            $validatedData['wrong3'],
-        ];
-
-        // Shuffle the options to randomize their order
-        shuffle($options);
-
         // Create the question in the database
         Question::create([
             'topic_id' => $validatedData['topic_id'],
             'question' => $validatedData['question'],
-            'options' => json_encode($options), // Save the shuffled options as a JSON string
-            'answer' => $validatedData['correct_answer'],
+            'correct_answer' => $validatedData['correct_answer'],
+            'wrong1'=> $validatedData['wrong1'],
+            'wrong2'=> $validatedData['wrong1'],
+            'wrong3'=> $validatedData['wrong1'],
         ]);
 
-        return redirect()->back()->with('success', 'Jautājums saglabāts!');
+        return redirect()->back()->with('status', 'Jautājums saglabāts!');
     }
 }
