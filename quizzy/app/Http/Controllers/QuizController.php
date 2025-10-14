@@ -20,9 +20,15 @@ class QuizController extends Controller
             'topic_id' => 'required|exists:topics,id'
         ]);
 
+        // Count questions for the topic
+        $questionCount = Question::where('topic_id', $request->topic_id)->count();
+
+        if ($questionCount < 15) {
+            return redirect()->back()->with('error', 'Šai tēmai nav pietiekami daudz jautājumu! Lūdzu izvēlieties citu tēmu.');
+        }
+
         $topicKey = 'quiz_questions_topic_' . $request->topic_id;
 
-        // If quiz just started, store question IDs in session
         if (!$request->session()->has($topicKey)) {
             $questions = Question::where('topic_id', $request->topic_id)
                 ->take(15)
@@ -32,13 +38,16 @@ class QuizController extends Controller
             $request->session()->put($topicKey, $questions->pluck('id')->toArray());
         }
 
-        // Get questions in the same order
         $questionIds = $request->session()->get($topicKey);
+
+        if (empty($questionIds)) {
+            return redirect()->back()->with('error', 'Šai tēmai vēl nav jautājumu!');
+        }
+
         $questions = Question::whereIn('id', $questionIds)
             ->orderByRaw("FIELD(id, " . implode(',', $questionIds) . ")")
             ->get();
 
-        // Pass topic_id to the Blade so retake/redirect works
         $topic_id = $request->topic_id;
 
         return view('quiz.play', compact('questions', 'topic_id'));
@@ -95,11 +104,7 @@ public function leaderboard($topic_id)
     return view('quiz.leaderboard', compact('highscores', 'userScore', 'userRank', 'topic_id'));
 }
 
-
-
-
-
-    public function create() {
+public function create() {
         $topics = Topic::all();
         return view('quiz.create', compact('topics'));
     }
@@ -114,25 +119,27 @@ public function leaderboard($topic_id)
             'wrong3' => 'string|max:255',
         ]);
 
-        // Combine all answers into a JSON array for the 'options' column
-        $options = [
-            $validatedData['correct_answer'],
-            $validatedData['wrong1'],
-            $validatedData['wrong2'],
-            $validatedData['wrong3'],
-        ];
-
-        // Shuffle the options to randomize their order
-        shuffle($options);
-
         // Create the question in the database
         Question::create([
             'topic_id' => $validatedData['topic_id'],
             'question' => $validatedData['question'],
-            'options' => json_encode($options), // Save the shuffled options as a JSON string
-            'answer' => $validatedData['correct_answer'],
+            'correct_answer' => $validatedData['correct_answer'],
+            'wrong1'=> $validatedData['wrong1'],
+            'wrong2'=> $validatedData['wrong2'],
+            'wrong3'=> $validatedData['wrong3'],
+            'wrong4'=> $validatedData['wrong4'],
         ]);
 
-        return redirect()->back()->with('success', 'Jautājums saglabāts!');
+        return redirect()->back()->with('status', 'Jautājums saglabāts!');
+    }
+
+    public function storeTopic(Request $request) {
+        $request->validate([
+            'new_topic_name' => 'required|string|max:255'
+        ]);
+
+        Topic::firstOrCreate(['name' => $request->new_topic_name]);
+
+        return redirect()->back()->with('status', 'Tēma pievienota!');
     }
 }

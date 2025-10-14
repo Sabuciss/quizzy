@@ -218,6 +218,7 @@ header nav a:hover {
 .result-box a:hover {
     background-color: #42a5f5;
 }
+<<<<<<< HEAD
 /* leaderboard */
 
 .leaderboard-wrapper table {
@@ -316,4 +317,11 @@ button.leaderboard-btn:hover {
     flex-direction: column;
     align-items: center;
     width: 100%;
+=======
+
+@media(max-with:550px){
+    .container{
+        margin: 10px;
+    }
+>>>>>>> ae8c242eb69611f4b6a986c52dc8a71c7d484a16
 }

@@ -1,9 +1,20 @@
 <x-layout>
     <div class="container navbar-container scroll">
         <div class="create-box">
-            <h1>Pievienot jautājumu</h1>
 
-            <form method="POST" action="/create">
+            <h1>Pievienot jautājumu</h1>
+            @if(session('status'))
+                <script>
+                    alert("{{ session('status') }}");
+                </script>
+            @endif
+
+            @if($errors->any())
+                <script>
+                    alert("Neizdevās pievienot jautājumu. Lūdzu pārbaudiet ievades datus.");
+                </script>
+            @endif
+            <form action="{{ route('questions.store') }}" method="POST">
                 @csrf
 
                 <label for="topic_id">Tēma</label>
@@ -24,13 +35,29 @@
                 <input type="text" name="wrong1" id="wrong1" required />
 
                 <label for="wrong2">Nepareizā atbilde 2</label>
-                <input type="text" name="wrong2" id="wrong2" required />
+                <input type="text" name="wrong2" id="wrong2" />
 
                 <label for="wrong3">Nepareizā atbilde 3</label>
-                <input type="text" name="wrong3" id="wrong3" required />
+                <input type="text" name="wrong3" id="wrong3" />
+
+                <label for="wrong4">Nepareizā atbilde 4</label>
+                <input type="text" name="wrong4" id="wrong4" />
 
                 <button type="submit">Saglabāt</button>
             </form>
         </div>
+
+        <div class="create-box">
+            
+            <form method="POST" action="{{ route('quiz.storeTopic') }}">
+                @csrf
+
+                <label for="new_topic_id">Tēma</label>
+                <input type="text" name="new_topic_name" id="new_topic_name" placeholder="Tēmas nosaukums" required />
+                
+                <button type="submit">Saglabāt</button>
+            </form>
+        </div>
+        
     </div>
 </x-layout>
