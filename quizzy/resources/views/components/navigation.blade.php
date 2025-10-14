@@ -1,11 +1,12 @@
 <header>
     <nav>
-        <a href="{{ route('quiz.index') }}">Sākums</a>
+        <a href="{{ route('quiz.index') }}">Izvēlies tēmu</a>
+        
 
         @auth
             @can('access-admin-features')
                 {{-- Prieks admin --}}
-                <a href="{{ route('quiz.create') }}">Izveidot Testu</a>
+                <a href="{{ route('quiz.create') }}">Izveidot Jautājumu / Tēmu</a>
             @endcan
 
             <form method="POST" action="{{ route('logout') }}" style="display:inline">
