@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\LeaderboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -38,4 +39,4 @@ Route::post('/quiz/topic', [\App\Http\Controllers\QuizController::class, 'storeT
 Route::get('/results', [QuizController::class, 'results'])->name('quiz.results');
 
 // Leaderboard lapa konkrētajai tēmai
-Route::get('/leaderboard/{topic}', [QuizController::class, 'leaderboard'])->name('quiz.leaderboard')->middleware('auth');
+Route::get('/leaderboard/{topic}', [LeaderboardController::class, 'leaderboard'])->name('quiz.leaderboard')->middleware('auth');

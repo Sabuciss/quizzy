@@ -218,7 +218,7 @@ header nav a:hover {
 .result-box a:hover {
     background-color: #42a5f5;
 }
-<<<<<<< HEAD
+          HEAD
 /*----------LEADERBOARD----------*/
 .leaderboard-wrapper table {
     border-collapse: separate;
@@ -344,5 +344,4 @@ button.leaderboard-btn:hover {
     .container{
         margin: 10px;
     }
->>>>>>> ae8c242eb69611f4b6a986c52dc8a71c7d484a16
 }
