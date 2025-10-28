@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Topic;
+use App\Models\Leaderboard;
 use App\Models\Question;
 
 class QuizController extends Controller
@@ -33,7 +34,37 @@ class QuizController extends Controller
 
 
 // Leaderborda funkcija
-   public function results(Request $request) {
+   public function leaderboard($topic_id)
+    {
+        $topics = Topic::all();
+
+        $highscores = QuizResult::where('topic_id', $topic_id)
+            ->orderByDesc('score')
+            ->orderBy('created_at')
+            ->with('user', 'topic')
+            ->take(10)
+            ->get();
+
+        $userId = auth()->id();
+        $userScore = null;
+        $userRank = null;
+
+        if ($userId) {
+            $userScore = QuizResult::where('user_id', $userId)
+                ->where('topic_id', $topic_id)
+                ->orderByDesc('score')
+                ->first();
+            if ($userScore) {
+                $userRank = QuizResult::where('topic_id', $topic_id)
+                    ->where('score', '>', $userScore->score)
+                    ->count() + 1;
+            }
+        }
+        return view('quiz.leaderboard', compact('topics', 'highscores', 'userScore', 'userRank', 'topic_id'));
+    }
+
+    public function results(Request $request)
+{
     $score = $request->query('score');
     $total = $request->query('total');
     $topic_id = $request->query('topic_id');
@@ -42,7 +73,7 @@ class QuizController extends Controller
         \App\Models\QuizResult::updateOrCreate(
             [
                 'user_id' => auth()->id(),
-                'topic_id' => $topic_id
+                'topic_id' => $topic_id,
             ],
             [
                 'score' => $score,
@@ -54,34 +85,7 @@ class QuizController extends Controller
     return view('quiz.results', compact('score', 'total', 'topic_id'));
 }
 
-public function leaderboard($topic_id)
-{
-    $highscores = \App\Models\QuizResult::where('topic_id', $topic_id)
-        ->orderByDesc('score')
-        ->orderBy('created_at')
-        ->with('user')
-        ->take(10)
-        ->get();
 
-    $userId = auth()->id();
-
-    $userScore = null;
-    $userRank = null;
-    if ($userId) {
-        $userScore = \App\Models\QuizResult::where('user_id', $userId)
-            ->where('topic_id', $topic_id)
-            ->orderByDesc('score')
-            ->first();
-
-        if ($userScore) {
-            $userRank = \App\Models\QuizResult::where('topic_id', $topic_id)
-                ->where('score', '>', $userScore->score)
-                ->count() + 1;
-        }
-    }
-
-    return view('quiz.leaderboard', compact('highscores', 'userScore', 'userRank', 'topic_id'));
-}
 
 public function create() {
         $topics = Topic::all();

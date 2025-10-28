@@ -218,9 +218,8 @@ header nav a:hover {
 .result-box a:hover {
     background-color: #42a5f5;
 }
-<<<<<<< HEAD
-/* leaderboard */
-
+          HEAD
+/*----------LEADERBOARD----------*/
 .leaderboard-wrapper table {
     border-collapse: separate;
     border-spacing: 0 10px;
@@ -317,11 +316,32 @@ button.leaderboard-btn:hover {
     flex-direction: column;
     align-items: center;
     width: 100%;
-=======
+}
+
+/* layout for create page: place create-boxes side-by-side */
+.create-row {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin: 10px 0;
+}
+
+.create-row .create-box {
+    flex: 0 1 360px; /* keeps boxes same width but allows wrapping on small screens */
+    max-width: 100%;
+}
+
+@media (max-width: 700px) {
+    .create-row {
+        flex-direction: column;
+        align-items: center;
+    }
+}
 
 @media(max-with:550px){
     .container{
         margin: 10px;
     }
->>>>>>> ae8c242eb69611f4b6a986c52dc8a71c7d484a16
 }

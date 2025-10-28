@@ -12,4 +12,9 @@ class QuizResult extends Model
     {
         return $this->belongsTo(User::class); // Attiecība ar User modeli
     }
+
+    public function topic()//priekš leaderboarda
+    {
+        return $this->belongsTo(Topic::class);  // Šī ir nepieciešamā attiecība
+    }
 }
