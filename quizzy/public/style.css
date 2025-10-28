@@ -218,7 +218,7 @@ header nav a:hover {
 .result-box a:hover {
     background-color: #42a5f5;
 }
-          HEAD
+
 /*----------LEADERBOARD----------*/
 .leaderboard-wrapper table {
     border-collapse: separate;
@@ -261,7 +261,7 @@ header nav a:hover {
 
 .leaderboard-wrapper tr[style] {
     background-color: #d2f6c5 !important; /* saglabā tavā kodā noteikto highlight */
-    box-shadow: 0 2px 8px rgba(68, 204, 85, 0.5);
+    box-shadow: 0 2px 8px #44cc5580;
 }
 
 .leaderboard-wrapper td:first-child {
@@ -340,7 +340,7 @@ button.leaderboard-btn:hover {
     }
 }
 
-@media(max-with:550px){
+@media(max-width:550px){
     .container{
         margin: 10px;
     }
