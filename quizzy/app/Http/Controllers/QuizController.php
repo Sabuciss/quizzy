@@ -94,8 +94,9 @@ public function create() {
             'question' => 'required|string|max:255',
             'correct_answer' => 'required|string|max:255',
             'wrong1' => 'required|string|max:255',
-            'wrong2' => 'string|max:255',
-            'wrong3' => 'string|max:255',
+            'wrong2' => 'nullable|string|max:255',
+            'wrong3' => 'nullable|string|max:255',
+            'wrong4' => 'nullable|string|max:255',
         ]);
 
         // Create the question in the database

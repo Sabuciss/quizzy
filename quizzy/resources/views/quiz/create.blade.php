@@ -25,23 +25,23 @@
                 </select>
 
                 <label for="question">Jautājums</label>
-                <textarea name="question" id="question" rows="4"></textarea>
+                <textarea name="question" id="question" rows="4">{{ old('question') }}</textarea>
 
                 <h3>Atbildes varianti:</h3>
                 <label for="correct_answer">Pareizā atbilde</label>
-                <input type="text" name="correct_answer" id="correct_answer" required />
+                <input type="text" name="correct_answer" id="correct_answer" value="{{ old('correct_answer') }}" required />
 
                 <label for="wrong1">Nepareizā atbilde 1</label>
-                <input type="text" name="wrong1" id="wrong1" required />
+                <input type="text" name="wrong1" id="wrong1" value="{{ old('wrong1') }}" required />
 
                 <label for="wrong2">Nepareizā atbilde 2</label>
-                <input type="text" name="wrong2" id="wrong2" />
+                <input type="text" name="wrong2" id="wrong2" value="{{ old('wrong2') }}" />
 
                 <label for="wrong3">Nepareizā atbilde 3</label>
-                <input type="text" name="wrong3" id="wrong3" />
+                <input type="text" name="wrong3" id="wrong3" value="{{ old('wrong3') }}" />
 
                 <label for="wrong4">Nepareizā atbilde 4</label>
-                <input type="text" name="wrong4" id="wrong4" />
+                <input type="text" name="wrong4" id="wrong4" value="{{ old('wrong4') }}" />
 
                 <button type="submit">Saglabāt</button>
             </form>
