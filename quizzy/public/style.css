@@ -5,6 +5,7 @@ body, input, button, select, textarea, label {
 
 body {
     margin: 0;
+    padding: 10px;
 }
 
 /*----------BUTTONS----------*/
@@ -58,7 +59,7 @@ button:hover {
     border-radius: 5px;
     text-align: center;
     background-color: #f0f4f8;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
     padding: 16px;
     font-size: 15px;
 }
@@ -343,5 +344,17 @@ button.leaderboard-btn:hover {
 @media(max-with:550px){
     .container{
         margin: 10px;
+    }
+}
+@media (max-width: 550px) {
+    #leaderboard-table {
+        width: 95%;
+        max-width: 320px;
+        font-size: 14px;
+    }
+
+    #leaderboard-table th,
+    #leaderboard-table td {
+        padding: 6px 10px;
     }
 }
